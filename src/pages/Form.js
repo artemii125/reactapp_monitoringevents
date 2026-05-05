@@ -22,7 +22,7 @@ const Form = () => {
             status: statusRef.current.value 
         };
 
-        axios.post('http://localhost:5000/items', JSON.stringify(newItemData), {
+        axios.post('https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items', newItemData, {
             headers: { "Content-Type": "application/json" }
         })
             .then(() => {

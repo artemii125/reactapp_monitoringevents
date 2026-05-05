@@ -12,7 +12,7 @@ const Detail = () => {
     const statusRef = useRef(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/items/${id}`)
+        axios.get(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`)
             .then(response => {
                 const itemData = response.data;
                 if (nameRef.current && typeRef.current) {
@@ -36,7 +36,7 @@ const Detail = () => {
             status: statusRef.current.value
         };
 
-        axios.put(`http://localhost:5000/items/${id}`, JSON.stringify(updatedItem), {
+        axios.put(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`, updatedItem, {
             headers: { "Content-Type": "application/json" }
         })
             .then(() => navigate('/'))

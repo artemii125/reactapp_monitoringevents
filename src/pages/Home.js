@@ -6,7 +6,7 @@ const Home = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/items")
+    axios.get("https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items")
       .then(response => {
         setData(response.data);
         console.log("Данные загружены:", response.data);
@@ -15,7 +15,7 @@ const Home = () => {
   }, []);
 
   function deleteItem(id) {
-    axios.delete(`http://localhost:5000/items/${id}`)
+    axios.delete(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`)
       .then(() => {
         console.log(`Мероприятие ${id} удалено`);
         setData(data.filter(item => item.id !== id));
