@@ -11,6 +11,11 @@ const Form = () => {
     
     const navigate = useNavigate();
 
+    const capitalize = (str) => {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -18,7 +23,7 @@ const Form = () => {
             name: nameRef.current.value, 
             type: typeRef.current.value,
             venue: venueRef.current.value,
-            security: securityRef.current.value,
+            security: capitalize(securityRef.current.value),
             status: statusRef.current.value 
         };
 
@@ -57,9 +62,9 @@ const Form = () => {
                 <label>
                     Уровень безопасности: <br/>
                     <select ref={securityRef}>
-                        <option value="low">Low (Низкий)</option>
-                        <option value="medium">Medium (Средний)</option>
-                        <option value="high">High (Высокий)</option>
+                        <option value="Low">Low (Низкий)</option>
+                        <option value="Medium">Medium (Средний)</option>
+                        <option value="High">High (Высокий)</option>
                     </select>
                 </label>
                 <br /><br />

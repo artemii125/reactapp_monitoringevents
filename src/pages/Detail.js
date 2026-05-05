@@ -11,6 +11,11 @@ const Detail = () => {
     const securityRef = useRef(null);
     const statusRef = useRef(null);
 
+    const capitalize = (str) => {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
+
     useEffect(() => {
         axios.get(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`)
             .then(response => {
@@ -19,7 +24,7 @@ const Detail = () => {
                     nameRef.current.value = itemData.name || '';
                     typeRef.current.value = itemData.type || '';
                     venueRef.current.value = itemData.venue || '';
-                    securityRef.current.value = itemData.security || 'low'.toLowerCase();
+                    securityRef.current.value = capitalize(itemData.security) || 'Low';
                     statusRef.current.value = itemData.status || 'На согласовании';
                 }
             })
@@ -32,7 +37,7 @@ const Detail = () => {
             name: nameRef.current.value,
             type: typeRef.current.value,
             venue: venueRef.current.value,
-            security: securityRef.current.value,
+            security: capitalize(securityRef.current.value),
             status: statusRef.current.value
         };
 
@@ -42,6 +47,10 @@ const Detail = () => {
             .then(() => navigate('/'))
             .catch(error => console.error("Ошибка обновления:", error));
     };
+
+    if (isLoading) {
+        return <h2 style={{ padding: "20px" }}>Загрузка...</h2>;
+    }
 
     return (
         <div>

@@ -4,24 +4,41 @@ import axios from 'axios';
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     axios.get("https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items")
       .then(response => {
         setData(response.data);
+        setIsLoading(false);
         console.log("Данные загружены:", response.data);
       })
-      .catch(error => console.error("Ошибка запроса:", error));
+      .catch(error => {
+        console.error("Ошибка запроса:", error);
+        setIsLoading(false);
+      });
   }, []);
 
   function deleteItem(id) {
+    const originalData = [...data];
+    setData(data.filter(item => item.id !== id));
     axios.delete(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`)
       .then(() => {
         console.log(`Мероприятие ${id} удалено`);
         setData(data.filter(item => item.id !== id));
       })
-      .catch(error => console.error("Ошибка удаления:", error));
+      .catch(error => {
+        console.error("Ошибка удаления:", error);
+        setData(originalData);
+        alert("Не удалось удалить мероприятие. Пожалуйста, попробуйте снова.");
+      });
   }
+
+  const capitalize = (str) => {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }; 
 
   const getSecurityColor = (security) => {
     const level = (security || '').toLowerCase();
@@ -29,6 +46,10 @@ const Home = () => {
     if (level === 'medium') return 'orange';
     return 'green';
   };
+
+  if (isLoading) {
+    return <div style={{ padding: "20px" }}>Загрузка...</div>;
+  }
 
   return (
     <div style={{ padding: "20px" }}>
