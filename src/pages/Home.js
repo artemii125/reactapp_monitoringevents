@@ -71,7 +71,7 @@ const Home = () => {
                       color: getSecurityColor(item.security),
                       fontWeight: "bold"
                   }}>
-                      [{item.security}]
+                      [{capitalize(item.security)}]
                   </span>
                 </div>
             </Link>
