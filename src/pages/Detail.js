@@ -5,6 +5,7 @@ import axios from 'axios';
 const Detail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
     const nameRef = useRef(null);
     const typeRef = useRef(null);
     const venueRef = useRef(null);
@@ -17,6 +18,7 @@ const Detail = () => {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`)
             .then(response => {
                 const itemData = response.data;
@@ -27,8 +29,12 @@ const Detail = () => {
                     securityRef.current.value = capitalize(itemData.security) || 'Low';
                     statusRef.current.value = itemData.status || 'На согласовании';
                 }
+                setIsLoading(false);
             })
-            .catch(error => console.error("Ошибка загрузки:", error));
+            .catch(error => {
+                console.error("Ошибка загрузки:", error);
+                setIsLoading(false);
+            });
     }, [id]);
 
     const handleSubmit = (e) => {

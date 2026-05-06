@@ -62,15 +62,15 @@ const Form = () => {
                 <label>
                     Уровень безопасности: <br/>
                     <select ref={securityRef}>
-                        <option value="Low">Low (Низкий)</option>
-                        <option value="Medium">Medium (Средний)</option>
-                        <option value="High">High (Высокий)</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
                     </select>
                 </label>
                 <br /><br />
 
                 <label>
-                    Начальный статус: <br/>
+                    Cтатус: <br/>
                     <select ref={statusRef} required>
                         <option value="На согласовании">На согласовании</option>
                         <option value="Утверждено">Утверждено</option>
@@ -82,6 +82,7 @@ const Form = () => {
                 <br /><br />
 
                 <button type="submit">Добавить</button>
+                <button type="button" onClick={() => navigate('/')} style={{ marginLeft: "10px" }}>Назад</button>
             </form>
         </div>
     );

@@ -6,6 +6,11 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const capitalize = (str) => {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   useEffect(() => {
     setIsLoading(true);
     axios.get("https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items")
@@ -22,11 +27,10 @@ const Home = () => {
 
   function deleteItem(id) {
     const originalData = [...data];
-    setData(data.filter(item => item.id !== id));
+    setData(prevData => prevData.filter(item => item.id !== id));
     axios.delete(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`)
       .then(() => {
         console.log(`Мероприятие ${id} удалено`);
-        setData(data.filter(item => item.id !== id));
       })
       .catch(error => {
         console.error("Ошибка удаления:", error);
@@ -34,11 +38,6 @@ const Home = () => {
         alert("Не удалось удалить мероприятие. Пожалуйста, попробуйте снова.");
       });
   }
-
-  const capitalize = (str) => {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-  }; 
 
   const getSecurityColor = (security) => {
     const level = (security || '').toLowerCase();
