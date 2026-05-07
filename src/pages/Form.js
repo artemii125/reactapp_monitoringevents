@@ -32,6 +32,7 @@ const Form = () => {
         })
             .then (() => {
                 console.log("Данные в базе");
+                return axios.post('/api/send-email', newItemData);
             })
             .then(() => {
                 console.log("Мероприятие успешно создано");
