@@ -7,7 +7,6 @@ const Detail = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     
-    // 1. Создаем стейт для данных мероприятия
     const [item, setItem] = useState({
         name: '',
         type: 'Внутреннее',
@@ -20,7 +19,6 @@ const Detail = () => {
         setIsLoading(true);
         axios.get(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`)
             .then(response => {
-                // 2. Записываем данные в стейт. React сам обновит поля, когда уберем загрузку
                 setItem(response.data);
                 setIsLoading(false);
             })
@@ -32,7 +30,6 @@ const Detail = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // 3. Отправляем текущее состояние item
         axios.put(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${id}`, item)
             .then(() => navigate('/'))
             .catch(error => console.error("Ошибка обновления:", error));
@@ -74,6 +71,16 @@ const Detail = () => {
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
+                    </select>
+                </label><br/><br/>
+
+                <label>Статус мероприятия: <br/>
+                    <select value={item.status} onChange={(e) => setItem({...item, status: e.target.value})}>
+                        <option value="На согласовании">На согласовании</option>
+                        <option value="Утверждено">Утверждено</option>
+                        <option value="В процессе">В процессе</option>
+                        <option value="Завершено">Завершено</option>
+                        <option value="Отклонено">Отклонено</option>
                     </select>
                 </label><br/><br/>
 
