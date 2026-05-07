@@ -30,6 +30,9 @@ const Form = () => {
         axios.post('https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items', newItemData, {
             headers: { "Content-Type": "application/json" }
         })
+            .then (() => {
+                console.log("Данные в базе");
+            })
             .then(() => {
                 console.log("Мероприятие успешно создано");
                 navigate('/');
