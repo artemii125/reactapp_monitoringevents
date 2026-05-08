@@ -17,7 +17,7 @@ const Form = () => {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (isSubmitting) return;
