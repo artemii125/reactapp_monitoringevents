@@ -30,14 +30,14 @@ const Home = () => {
     setData(prevData => prevData.filter(i => i.id !== item.id));
     
     try {
-    await.axios.delete(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${item.id}`)
-    console.log(`Мероприятие ${item.id} удалено`);
+      await axios.delete(`https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items/${item.id}`)
+      console.log(`Мероприятие ${item.id} удалено`);
 
-    await axios.post('/api/send-email', {
-      name: item.name,
-      venue: item.venue,
-      security: item.security,
-      action: 'delete'
+      await axios.post('/api/send-email', {
+        name: item.name,
+        venue: item.venue,
+        security: item.security,
+        action: 'delete'
       });
       
       console.log("Уведомление об удалении отправлен на почту");
