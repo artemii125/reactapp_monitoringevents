@@ -50,7 +50,7 @@ const Form = () => {
             console.error("Ошибка создания:", error);
 
             if (createdId) {
-                await axios.delete(`${dbUrl}/${createdId}`);
+                await axios.delete(`${'https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items'}/${createdId}`);
                 alert("Ошибка уведомления. Операция отменена, запись удалена из системы.");
             } else {
                 alert("Ошибка соединения с сервером базы данных.");
