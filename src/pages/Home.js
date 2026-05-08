@@ -84,7 +84,7 @@ const Home = () => {
                   </span>
                 </div>
             </Link>
-            <button onClick={() => deleteItem(item.id)} style={{ marginTop: "5px", cursor: "pointer" }}>
+            <button onClick={() => deleteItem(item)} style={{ marginTop: "5px", cursor: "pointer" }}>
               Удалить
             </button>
             <hr style={{ opacity: "0.2", marginTop: "10px" }} />
