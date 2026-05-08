@@ -24,17 +24,20 @@ module.exports = async (req, res) => {
       to: "larin.2024@stud.nstu.ru",
       subject: isDeletion ? `УДАЛЕНИЕ ОБЪЕКТА - ${name}` : `РЕГИСТРАЦИЯ ОБЪЕКТА - ${name}`,
       html: `
-        <div style="max-width: 600px; margin: 20px auto; font-family: 'Courier New', Courier, monospace; color: #000; border: 1px solid #000; padding: 20px;">
-          <h2 style="text-transform: uppercase; padding-bottom: 10px;">
-            ${isDeletion ? 'Удалено мероприятие' : 'Зарегестрировано новое мероприятие'}
-          </h2>
-            <p><strong>Наименование:</strong> ${name}</p>
-            <p><strong>Местоположение:</strong> ${venue}</p>
-            <p><strong>Класс защиты:</strong> ${security}</p>
-            <p><strong>Тип операции:</strong> ${isDeletion ? 'Исключение из реестра' : 'Внесение в реестр'}</p>
+        <div style="max-width: 600px; margin: 0 auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6;">
+          <h1 style="font-size: 20px; font-weight: normal; color: #000; margin-bottom: 30px; text-align: center;">
+            ${isDeletion ? 'ОТЧЕТ ОБ ИСКЛЮЧЕНИИ ОБЪЕКТА' : 'ОТЧЕТ О РЕГИСТРАЦИИ ОБЪЕКТА'}
+          </h1>
+          
+          <div style="padding: 0 20px;">
+            <p style="margin: 5px 0;"><strong>Наименование:</strong> ${name}</p>
+            <p style="margin: 5px 0;"><strong>Местоположение:</strong> ${venue}</p>
+            <p style="margin: 5px 0;"><strong>Класс защиты:</strong> ${security}</p>
+            <p style="margin: 5px 0;"><strong>Статус:</strong> ${isDeletion ? 'Удалено' : 'Активно'}</p>
           </div>
 
-            Системное время: ${formattedDate}
+          <p style="margin-top: 40px; font-size: 11px; color: #777; text-align: center;">
+            Сформировано системой автоматически: ${formattedDate}
           </p>
         </div>
       `
