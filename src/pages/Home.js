@@ -25,7 +25,7 @@ const Home = () => {
       });
   }, []);
 
-  function deleteItem(item) {
+  async function deleteItem(item) {
     const originalData = [...data];
     setData(prevData => prevData.filter(i => i.id !== item.id));
     
