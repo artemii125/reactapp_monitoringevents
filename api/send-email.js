@@ -13,8 +13,8 @@ module.exports = async (req, res) => {
     host: "sandbox.smtp.mailtrap.io",
     port: 2525,
     auth: {
-      user: "b54afbc4658fa3",
-      pass: "5df21a295ec78f"
+      user: "ae934a81ba7d77",
+      pass: "37d7864a99725b"
     }
   });
 
