@@ -24,23 +24,23 @@ module.exports = async (req, res) => {
       to: "larin.2024@stud.nstu.ru",
       subject: isDeletion ? `УДАЛЕНИЕ ОБЪЕКТА - ${name}` : `РЕГИСТРАЦИЯ ОБЪЕКТА - ${name}`,
       html: `
-        <div style="max-width: 600px; margin: 0 auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6;">
-          <h1 style="font-size: 20px; font-weight: normal; color: #000; margin-bottom: 30px; text-align: center;">
-            ${isDeletion ? 'ОТЧЕТ ОБ ИСКЛЮЧЕНИИ ОБЪЕКТА' : 'ОТЧЕТ О РЕГИСТРАЦИИ ОБЪЕКТА'}
-          </h1>
-          
-          <div style="padding: 0 20px;">
-            <p style="margin: 5px 0;"><strong>Наименование:</strong> ${name}</p>
-            <p style="margin: 5px 0;"><strong>Местоположение:</strong> ${venue}</p>
-            <p style="margin: 5px 0;"><strong>Класс защиты:</strong> ${security}</p>
-            <p style="margin: 5px 0;"><strong>Статус:</strong> ${isDeletion ? 'Удалено' : 'Активно'}</p>
-          </div>
+        <div style="max-width: 600px; margin: 0 auto; font-family: sans-serif; color: #000; line-height: 1.5;">
+    <h1 style="font-size: 18px; font-weight: bold; margin-bottom: 20px; text-align: center;">
+      ${isDeletion ? 'УВЕДОМЛЕНИЕ ОБ УДАЛЕНИИ МЕРОПРИЯТИЯ' : 'УВЕДОМЛЕНИЕ О РЕГИСТРАЦИИ МЕРОПРИЯТИЯ'}
+    </h1>
+    
+    <div style="margin-bottom: 30px;">
+      <p><strong>Наименование:</strong> ${name || 'Н/Д'}</p>
+      <p><strong>Местоположение:</strong> ${venue || 'Н/Д'}</p>
+      <p><strong>Класс защиты:</strong> ${security || 'Н/Д'}</p>
+      <p><strong>Статус операции:</strong> ${isDeletion ? 'Удалено' : 'Зарегистрировано'}</p>
+    </div>
 
-          <p style="margin-top: 40px; font-size: 11px; color: #777; text-align: center;">
-            Сформировано системой автоматически: ${formattedDate}
-          </p>
-        </div>
-      `
+    <p style="font-size: 11px; color: #666; text-align: center; border-top: 1px solid #eee; padding-top: 10px;">
+      Сформировано автоматически: ${formattedDate}
+    </p>
+  </div>
+`
     });
 
     return res.status(200).json({ message: 'Success' });
