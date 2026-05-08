@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ const Form = () => {
     const statusRef = useRef(null);
     
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const capitalize = (str) => {
         if (!str) return '';
@@ -19,6 +20,11 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (isSubmitting) return;
+        setIsSubmitting(true);
+        
+        let createdId = null;
+
         const newItemData = { 
             name: nameRef.current.value, 
             type: typeRef.current.value,
@@ -27,18 +33,31 @@ const Form = () => {
             status: statusRef.current.value 
         };
 
-        axios.post('https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items', newItemData, {
-            headers: { "Content-Type": "application/json" }
-        })
-            .then (() => {
-                console.log("Данные в базе");
-                return axios.post('/api/send-email', newItemData);
-            })
-            .then(() => {
-                console.log("Мероприятие успешно создано");
-                navigate('/');
-            })
-            .catch(error => console.error("Ошибка создания:", error));
+        try {
+            const dbResponse = await axios.post('https://69f9a9c1c509a40d3aa2f81c.mockapi.io/items', newItemData);
+            createdId = dbResponse.data.id;
+            console.log("Данные в базе");
+
+            await axios.post('/api/send-email', {
+                ...newItemData, 
+                action: 'create'
+            });
+            console.log("Уведомление успешно отправлено");
+
+            navigate('/');
+
+        } catch (error) {
+            console.error("Ошибка создания:", error);
+
+            if (createdId) {
+                await axios.delete(`${dbUrl}/${createdId}`);
+                alert("Ошибка уведомления. Операция отменена, запись удалена из системы.");
+            } else {
+                alert("Ошибка соединения с сервером базы данных.");
+            }
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
