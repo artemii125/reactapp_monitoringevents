@@ -19,32 +19,22 @@ module.exports = async (req, res) => {
   });
 
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: '"Система Мониторинга" <noreply@security.ru>',
       to: "larin.2024@stud.nstu.ru",
-      subject: isDeletion ? `УДАЛЕНИЕ ОБЪЕКТА - ${name}` : `РЕГИСТРАЦИЯ ОБЪЕКТА - ${name}`,
-      html: `
-        <div style="max-width: 600px; margin: 0 auto; font-family: sans-serif; color: #000; line-height: 1.5;">
-    <h1 style="font-size: 18px; font-weight: bold; margin-bottom: 20px; text-align: center;">
-      ${isDeletion ? 'УВЕДОМЛЕНИЕ ОБ УДАЛЕНИИ МЕРОПРИЯТИЯ' : 'УВЕДОМЛЕНИЕ О РЕГИСТРАЦИИ МЕРОПРИЯТИЯ'}
-    </h1>
-    
-    <div style="margin-bottom: 30px;">
-      <p><strong>Наименование:</strong> ${name || 'Н/Д'}</p>
-      <p><strong>Местоположение:</strong> ${venue || 'Н/Д'}</p>
-      <p><strong>Класс защиты:</strong> ${security || 'Н/Д'}</p>
-      <p><strong>Статус операции:</strong> ${isDeletion ? 'Удалено' : 'Зарегистрировано'}</p>
-    </div>
-
-    <p style="font-size: 11px; color: #666; text-align: center; border-top: 1px solid #eee; padding-top: 10px;">
-      Сформировано автоматически: ${formattedDate}
-    </p>
-  </div>
-`
+      subject: isDeletion ? `УДАЛЕНИЕ: ${name}` : `СОЗДАНИЕ: ${name}`,
+      text: `Объект: ${name}, Место: ${venue}, Дата: ${formattedDate}`,
+      html: `<b>Объект:</b> ${name}<br><b>Место:</b> ${venue}<br><b>Статус:</b> ${isDeletion ? 'Удалено' : 'Создано'}`
     });
 
-    return res.status(200).json({ message: 'Success' });
+    console.log("Email sent: " + info.response);
+    return res.status(200).json({ success: true, info: info.response });
+
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error("ОШИБКА ПОЧТЫ:", error);
+    return res.status(500).json({ 
+      error: "Ошибка на сервере почты", 
+      details: error.message
+    });
   }
 };
