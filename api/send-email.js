@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: '"Система Мониторинга внутреннних и внешних мероприятий"',
+      from: '"Система Мониторинга" <noreply@security.ru>',
       to: "larin.2024@stud.nstu.ru",
       subject: isDeletion ? `УДАЛЕНИЕ ОБЪЕКТА - ${name}` : `РЕГИСТРАЦИЯ ОБЪЕКТА - ${name}`,
       html: `
